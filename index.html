@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MayÄ±n TarlasÄ±</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #gameBoard { display: grid; grid-template-columns: repeat(5, 50px); gap: 5px; justify-content: center; }
+        .cell { width: 50px; height: 50px; background-color: lightgray; display: flex; align-items: center; justify-content: center; 
+                font-size: 20px; cursor: pointer; border: 1px solid #000; }
+        .bomb { background-color: red; color: white; }
+        #message { font-size: 24px; font-weight: bold; margin-top: 20px; color: red; }
+    </style>
+</head>
+<body>
+    <h1>MayÄ±n TarlasÄ±</h1>
+    <div id="gameBoard"></div>
+    <p id="message"></p>
+    <script>
+        const size = 5; // 5x5 Oyun alanÄ±
+        const mineCount = 5; // 5 mayÄ±n
+        const board = document.getElementById("gameBoard");
+        const message = document.getElementById("message");
+        let mines = [];
+
+        // Rastgele mayÄ±nlarÄ± yerleÅŸtir
+        while (mines.length < mineCount) {
+            let mine = Math.floor(Math.random() * size * size);
+            if (!mines.includes(mine)) mines.push(mine);
+        }
+
+        // Oyun tahtasÄ±nÄ± oluÅŸtur
+        for (let i = 0; i < size * size; i++) {
+            let cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.dataset.index = i;
+            cell.addEventListener("click", function() {
+                if (mines.includes(i)) {
+                    this.classList.add("bomb");
+                    this.innerText = "ğŸ’¥";
+                    message.innerText = "Ã–MER GAYDIR!";
+                    message.style.color = "red";
+                    document.querySelectorAll(".cell").forEach(c => c.style.pointerEvents = "none"); // Oyunu kilitle
+                } else {
+                    this.style.backgroundColor = "white";
+                    this.innerText = "âœ”";
+                }
+            });
+            board.appendChild(cell);
+        }
+    </script>
+</body>
+</html>
