@@ -31,6 +31,7 @@
         }
         .mine {
             background-color: red;
+            font-size: 25px;
         }
         #message {
             font-size: 30px;
@@ -68,6 +69,7 @@
         const gridSize = 4;
         const mineCount = 3;
         let mines = new Set();
+        let gameOver = false;
 
         while (mines.size < mineCount) {
             mines.add(Math.floor(Math.random() * (gridSize * gridSize)));
@@ -81,9 +83,14 @@
             cell.dataset.index = i;
 
             cell.addEventListener("click", function() {
+                if (gameOver) return; // Oyunu bitir
+
                 if (mines.has(i)) {
                     this.classList.add("mine");
+                    this.innerText = "💣"; // Mayın emojisi
                     showMessage();
+                    gameOver = true;
+                    disableAllCells();
                 } else {
                     this.style.backgroundColor = "green";
                     this.innerText = "✓";
@@ -106,6 +113,12 @@
             
             flag.style.display = "block";
             restartButton.style.display = "inline-block";
+        }
+
+        function disableAllCells() {
+            document.querySelectorAll(".cell").forEach(cell => {
+                cell.style.pointerEvents = "none"; // Tüm hücreleri devre dışı bırak
+            });
         }
     </script>
 </body>
