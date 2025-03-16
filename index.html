@@ -37,6 +37,23 @@
             font-weight: bold;
             margin-top: 20px;
             display: none;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+        #restart {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #restart:hover {
+            background-color: #ff4500;
         }
     </style>
 </head>
@@ -44,13 +61,14 @@
     <h1>Mayın Tarlası</h1>
     <div class="grid" id="grid"></div>
     <div id="message">ÖMER ÜNYILDIZ GAYDIR</div>
+    <img id="lgbt-flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Gay_Pride_Flag.svg/800px-Gay_Pride_Flag.svg.png" width="200" style="display:none; margin-top:10px;">
+    <button id="restart" onclick="location.reload()">Yeniden Başla</button>
 
     <script>
         const gridSize = 4;
-        const mineCount = 3; // 3 tane mayın olacak
+        const mineCount = 3;
         let mines = new Set();
 
-        // Rastgele mayın yerleştir
         while (mines.size < mineCount) {
             mines.add(Math.floor(Math.random() * (gridSize * gridSize)));
         }
@@ -77,11 +95,17 @@
 
         function showMessage() {
             let message = document.getElementById("message");
+            let flag = document.getElementById("lgbt-flag");
+            let restartButton = document.getElementById("restart");
+            
             message.style.display = "block";
             message.innerHTML = "ÖMER ÜNYILDIZ GAYDIR";
-            message.style.background = "linear-gradient(to right, red, orange, yellow, green, blue, purple)";
+            message.style.background = "linear-gradient(to right, red, orange, yellow, green, blue, purple, pink)";
             message.style.webkitBackgroundClip = "text";
             message.style.color = "transparent";
+            
+            flag.style.display = "block";
+            restartButton.style.display = "inline-block";
         }
     </script>
 </body>
